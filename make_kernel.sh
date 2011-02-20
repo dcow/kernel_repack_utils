@@ -39,14 +39,14 @@ if [ "$2" = "V" ]; then
 		-l -w
 
 	cd $WORK
-	rm -f "$1"-new
+	rm -f "$1"-voodoo
 	./repacker.sh -s "$1" \
 		-d "$1"-voodoo \
 		-r ../voodoo/full-lzma-loader.cpio.gz \
 		-c ""
 	mv "$1"-voodoo . 
 else
-	rm -f "$1"-voodoo
+	rm -f "$1"-new
 	./repacker.sh -s "$1" \
 		-d "$1"-new \
 		-r ../fascinate_initramfs \
