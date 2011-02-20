@@ -19,6 +19,9 @@ if [ "$2" = "V" ]; then
 	if [ ! -d lagfix ]; then
 		git clone git://github.com/project-voodoo/lagfix.git
 	fi
+	if [ ! -d cwm_voodoo ]; then
+		git clone git://github.com/jt1134/cwm_voodoo.git
+	fi
 
 	if [ ! -f lagfix/stages_builder/stages/stage1.tar ] || \
 	[ ! -f lagfix/stages_builder/stages/stage2.tar.lzma ] || \
@@ -36,6 +39,7 @@ if [ "$2" = "V" ]; then
 		-p lagfix/voodoo_initramfs_parts \
 		-x lagfix/extensions \
 		-t lagfix/stages_builder/stages \
+		-c cwm_voodoo \
 		-l -w
 
 	cd $WORK
