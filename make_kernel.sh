@@ -12,6 +12,7 @@ if [ ! -d ../fascinate_initramfs ]; then
 	git clone git://github.com/jt1134/fascinate_initramfs.git
 	cd $WORK
 fi
+rm -rf ../fascinate_initramfs/.git
 
 if [ "$2" = "V" ]; then
 	cd ..
@@ -45,7 +46,6 @@ if [ "$2" = "V" ]; then
 		-c ""
 	mv "$1"-voodoo . 
 else
-	rm -rf ../fascinate_initramfs/.git
 	rm -f "$1"-voodoo
 	./repacker.sh -s "$1" \
 		-d "$1"-new \
