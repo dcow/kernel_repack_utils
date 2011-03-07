@@ -12,7 +12,6 @@ if [ ! -d ../fascinate_initramfs ]; then
 	git clone git://github.com/jt1134/fascinate_initramfs.git
 	cd $WORK
 fi
-rm -rf ../fascinate_initramfs/.git
 
 if [ "$2" = "V" ]; then
 	cd ..
@@ -37,7 +36,6 @@ if [ "$2" = "V" ]; then
 		-s fascinate_initramfs \
 		-d voodoo \
 		-p lagfix/voodoo_initramfs_parts \
-		-x lagfix/extensions \
 		-t lagfix/stages_builder/stages \
 		-c cwm_voodoo \
 		-l -w
@@ -50,10 +48,20 @@ if [ "$2" = "V" ]; then
 		-c ""
 	mv "$1"-voodoo . 
 else
+	# voodoo scripts handle .git, so we have to do it ourselves here
+	cd ../fascinate_initramfs
+	zip -q -r git.zip .git
+	mv git.zip $WORK
+	rm -rf .git
+
 	rm -f "$1"-new
 	./repacker.sh -s "$1" \
 		-d "$1"-new \
 		-r ../fascinate_initramfs \
 		-c lzma
 	mv "$1"-new . 
+
+	cd ../fascinate_initramfs
+	unzip -q $WORK/git.zip
+	rm -f $WORK/git.zip
 fi
