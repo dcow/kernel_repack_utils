@@ -54,6 +54,7 @@ else
 	mv git.zip $WORK
 	rm -rf .git
 
+	cd $WORK
 	rm -f "$1"-new
 	./repacker.sh -s "$1" \
 		-d "$1"-new \
