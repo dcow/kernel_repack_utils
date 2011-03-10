@@ -50,10 +50,11 @@ if [ "$2" = "V" ]; then
 else
 	# voodoo scripts handle .git, so we have to do it ourselves here
 	cd ../fascinate_initramfs
-	zip -q -r git.zip .git
-	mv git.zip $WORK
-	rm -rf .git
-
+	if [ -d .git ]; then
+		zip -q -r git.zip .git
+		mv git.zip $WORK
+		rm -rf .git
+	fi
 	cd $WORK
 	rm -f "$1"-new
 	./repacker.sh -s "$1" \
@@ -62,7 +63,9 @@ else
 		-c lzma
 	mv "$1"-new . 
 
-	cd ../fascinate_initramfs
-	unzip -q $WORK/git.zip
-	rm -f $WORK/git.zip
+	if [ -f git.zip ]; then
+		cd ../fascinate_initramfs
+		unzip -q $WORK/git.zip
+		rm -f $WORK/git.zip
+	fi
 fi
